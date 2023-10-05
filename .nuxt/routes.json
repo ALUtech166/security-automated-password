@@ -1,0 +1,30 @@
+[
+  {
+    "name": "login",
+    "path": "/login",
+    "component": "/home/serge/Desktop/ALU-Year4/security-assignment2/pages/login.vue",
+    "chunkName": "pages/login",
+    "_name": "_755eaa55"
+  },
+  {
+    "name": "test",
+    "path": "/test",
+    "component": "/home/serge/Desktop/ALU-Year4/security-assignment2/pages/test.vue",
+    "chunkName": "pages/test",
+    "_name": "_599ee254"
+  },
+  {
+    "name": "test1",
+    "path": "/test1",
+    "component": "/home/serge/Desktop/ALU-Year4/security-assignment2/pages/test1.vue",
+    "chunkName": "pages/test1",
+    "_name": "_da2a446a"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "/home/serge/Desktop/ALU-Year4/security-assignment2/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_a891f184"
+  }
+]
