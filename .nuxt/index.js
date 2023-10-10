@@ -15,7 +15,9 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 import nuxt_plugin_plugin_0f2e1aec from 'nuxt_plugin_plugin_0f2e1aec' // Source: ./components/plugin.js (mode: 'all')
 import nuxt_plugin_plugin_74f724b8 from 'nuxt_plugin_plugin_74f724b8' // Source: ./vuetify/plugin.js (mode: 'all')
 import nuxt_plugin_vuescrollto_b647152e from 'nuxt_plugin_vuescrollto_b647152e' // Source: ./vue-scrollto.js (mode: 'client')
-import nuxt_plugin_aos_78651e70 from 'nuxt_plugin_aos_78651e70' // Source: ../plugins/aos.js (mode: 'client')
+import nuxt_plugin_axios_47cb1ca0 from 'nuxt_plugin_axios_47cb1ca0' // Source: ./axios.js (mode: 'all')
+import nuxt_plugin_aos_78651e70 from 'nuxt_plugin_aos_78651e70' // Source: ../plugins/aos.js (mode: 'all')
+import nuxt_plugin_axios_5659d192 from 'nuxt_plugin_axios_5659d192' // Source: ../plugins/axios.js (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -193,8 +195,16 @@ async function createApp(ssrContext, config = {}) {
     await nuxt_plugin_vuescrollto_b647152e(app.context, inject)
   }
 
-  if (process.client && typeof nuxt_plugin_aos_78651e70 === 'function') {
+  if (typeof nuxt_plugin_axios_47cb1ca0 === 'function') {
+    await nuxt_plugin_axios_47cb1ca0(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_aos_78651e70 === 'function') {
     await nuxt_plugin_aos_78651e70(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_axios_5659d192 === 'function') {
+    await nuxt_plugin_axios_5659d192(app.context, inject)
   }
 
   // Lock enablePreview in context

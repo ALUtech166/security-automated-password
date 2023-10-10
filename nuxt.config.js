@@ -23,7 +23,8 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: '~/plugins/aos.js', mode: 'client' }
+    '~/plugins/aos.js',
+    '~/plugins/axios.js' 
   ],
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -32,7 +33,8 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/axios'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -40,6 +42,7 @@ export default {
     '@nuxt/content',
     ['vue-scrollto/nuxt', { duration: 500, easing: 'ease' }],
     '@nuxtjs/google-fonts',
+    '@nuxtjs/axios'
     
   ],
 

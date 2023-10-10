@@ -5,8 +5,6 @@ import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
 const _755eaa55 = () => interopDefault(import('../pages/login.vue' /* webpackChunkName: "pages/login" */))
-const _599ee254 = () => interopDefault(import('../pages/test.vue' /* webpackChunkName: "pages/test" */))
-const _da2a446a = () => interopDefault(import('../pages/test1.vue' /* webpackChunkName: "pages/test1" */))
 const _a891f184 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 const emptyFn = () => {}
@@ -24,14 +22,6 @@ export const routerOptions = {
     path: "/login",
     component: _755eaa55,
     name: "login"
-  }, {
-    path: "/test",
-    component: _599ee254,
-    name: "test"
-  }, {
-    path: "/test1",
-    component: _da2a446a,
-    name: "test1"
   }, {
     path: "/",
     component: _a891f184,

@@ -46,7 +46,7 @@
 
                   </div>
                 </div>
-                <form class="lg:tw-mt-0 lg:tw-px-8 tw-px-4 tw-py-4 lg:tw-py-8" v-on:submit.prevent="sendMessage">
+                <form class="lg:tw-mt-0 lg:tw-px-8 tw-px-4 tw-py-4 lg:tw-py-8" @submit.prevent="registerUser">
 
                   <div class="tw-w-full tw-md:w-1/2 lg:tw-px-10">
                     <label class="tw-block tw-font-extrabold tw-mb-1" for="name">
@@ -103,8 +103,10 @@
                       <option value="teamlead">Team Lead</option>
                     </select>
                   </div>
+                  <!-- Display registration error -->
+                  <div v-if="registrationError" class="tw-text-red-600 lg:tw-px-10">{{ registrationError }}</div>
 
-                  <button
+                  <button @click.prevent="registerUser"
                     class="lg:tw-mx-10 tw-group bg-color tw-shadow-lg tw-rounded-lg tw-relative tw-h-12 tw-mt-4 tw-cursor-pointer hover:tw-transform hover:tw-translate-x-2 hover:tw-transition-transform hover:tw-duration-300 hover:tw-shadow-2xl-blue-600 hover:tw-shadow-2xl-lg tw-w-48 tw-overflow-hidden tw-rounded-lg tw-text-lg tw-shadow-2xl">
                     <div
                       class="tw-absolute tw-inset-0 tw-w-full bg-color tw--transition-all tw-duration-[250ms] tw-ease-out group-hover:tw-w-full">
@@ -128,8 +130,11 @@
   </div>
 </template>
 
+
+
 <script>
-import Password from 'vue-password-strength-meter'
+import Password from 'vue-password-strength-meter';
+
 export default {
   components: { Password },
   data() {
@@ -137,23 +142,17 @@ export default {
       title: 'Nous userer Page',
       user: {
         name: "",
-        phone: "",
         email: "",
         password: "",
-        message: "",
-        confirmPassword: ""
+        confirmPassword: "",
+        role: "student", // Default role
       },
-
+      registrationError: null, // To store registration error messages
     }
   },
 
   computed: {
-    getPasswordStrengthLabel() {
-      const passwordStrength = zxcvbn(this.user.password);
-      const labels = ['Very Weak', 'Weak', 'Fair', 'Strong', 'Very Strong'];
-      const score = passwordStrength.score;
-      return labels[score];
-    },
+
     passwordsMatch() {
       // Check if passwords match
       return this.user.password === this.user.confirmPassword;
@@ -178,26 +177,32 @@ export default {
   },
 
   methods: {
-    sendMessage() {
+
+
+    async registerUser() {
+
+      console.log(this.password)
       // Check if passwords match before submitting the form
-      if (this.passwordsMatch) {
-        // Form submission logic here
-        // ...
-      } else {
-        // Display an error message if passwords don't match
-        // You can also prevent form submission by returning early
-        alert("Passwords do not match. Please re-enter.");
+      if (!this.passwordsMatch) {
+        this.registrationError = "Passwords do not match. Please re-enter.";
+        return;
+      }
+
+      try {
+        const response = await axios.post('/api/auth/register', this.user);
+        if (response.status === 201) {
+          // Registration successful
+          // You can optionally redirect the user to a login page
+          this.$router.push('/login');
+        } else {
+          // Handle other response status codes if needed
+          this.registrationError = "Registration failed. Please try again.";
+        }
+      } catch (error) {
+        console.error(error);
+        this.registrationError = "Registration failed. Please try again.";
       }
     },
-    checkPasswordStrength() {
-      const passwordStrength = zxcvbn(this.user.password);
-      // The `zxcvbn` function returns a result object with a `score` property
-      // indicating the password strength (0 to 4). You can use this score to
-      // provide feedback to the user.
-      console.log('Password Strength:', passwordStrength.score);
-      // You can update the UI to provide feedback based on the score.
-    },
-    // Your other methods
   },
 
 
@@ -206,20 +211,21 @@ export default {
 
 <style scoped>
 .bg-color {
-  background-color: red;
+  background-color: #C70039;
 }
 
 :hover.hover-bg {
-  background-color: red;
+  background-color: #C70039;
 }
 
 
 .text-color,
 label {
-  color: red;
+  color: #C70039;
 }
 
 
 button {
   color: black
-}</style>
+}
+</style>
